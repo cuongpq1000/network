@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/usr/local/bin/nettest", line 146, in <module>
+    main(fdatain_name, fdataout_name, args)
+  File "/usr/local/bin/nettest", line 111, in main
+    send = subprocess.Popen([SEND, f"127.0.0.1:{port}"], stdin=fpdatain,
+  File "/usr/lib/python3.8/subprocess.py", line 858, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1704, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+OSError: [Errno 8] Exec format error: './4254send'

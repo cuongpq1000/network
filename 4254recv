@@ -32,8 +32,10 @@ log("[bound] " + str(UDP_PORT))
 
 # Now listen for packets
 while True:
-  result = sock.recvfrom(MSG_SIZE)
-
+  try:
+    result = sock.recvfrom(MSG_SIZE)
+  except socket.timeout:
+    result = None
   # If nothing is ready, we hit the timeout
   if result:
     (data, addr) = result # note, data is bytes, so we must convert back to string before use
@@ -52,9 +54,10 @@ while True:
         # If we receive data, we assume it's in-order
         # You will need to do much more here
         # check if the new packet arrive is duplicate or not
-        new_packet = decoded['sequence'] not in sequence
+        new_packet = decoded['sequence']
         # if the new packet arrive is not in the list
-        if new_packet:
+        if new_packet not in sequence:
+
           log("[recv data] " + str(decoded['sequence']) + " (" + str(len(data)) + ") ACCEPTED (in-order)")
           sequence.append(decoded['sequence'])
           sys.stdout.buffer.write(data)
